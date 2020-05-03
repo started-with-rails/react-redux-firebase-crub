@@ -48,4 +48,8 @@ function mapStateToProps(state, ownProps){
   }
 }
 
+// const mapDispatchToProps = dispatch => ({
+//   addPost: post => dispatch(addPost(post))
+// })
+
 export default connect(mapStateToProps, {addPost})(CreateForm);

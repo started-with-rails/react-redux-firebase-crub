@@ -7,7 +7,7 @@ import {getPosts} from './actions/postsAction';
 class  App extends Component {
  state = {posts: []}
  componentDidMount(){
-    this.props.getPosts();
+    getPosts();
  } 
  render(){
   return (
@@ -23,6 +23,8 @@ function mapStateToProps(state, ownProps){
     posts: state.posts
   }
 }
+const mapDispatchToProps = dispatch => ({
+  getPosts: dispatch(getPosts())
+})
 
-
-export default connect(mapStateToProps, {getPosts})(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
