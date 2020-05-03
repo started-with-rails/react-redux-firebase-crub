@@ -1,23 +1,28 @@
 import React, { Component } from 'react';
 import CreateForm from './components/CreateForm';
 import PostList from './components/PostList';
-import {database} from './firebase'
+import {connect} from 'react-redux';
+import {getPosts} from './actions/postsAction';
 
 class  App extends Component {
  state = {posts: []}
  componentDidMount(){
-    database.on('value', (snapshot) => {
-      this.setState({posts: snapshot.val()})
-    });
+    this.props.getPosts();
  } 
  render(){
   return (
     <div className="ui container">
       <CreateForm />
-      <PostList posts={this.state.posts}/>
+      <PostList posts={this.props.posts}/>
     </div>
   );
  }
 }
+function mapStateToProps(state, ownProps){
+  return{
+    posts: state.posts
+  }
+}
 
-export default App;
+
+export default connect(mapStateToProps, {getPosts})(App);

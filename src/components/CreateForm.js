@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import {database} from '../firebase'
+import {connect} from 'react-redux';
+import {addPost} from '../actions/postsAction';
 
 class CreateForm extends Component {
   state = { title: '', body: ''}
@@ -16,7 +17,7 @@ class CreateForm extends Component {
       title: this.state.title,
       body: this.state.body
     }
-    database.push(post)
+    this.props.addPost(post);
     this.setState({
       title: '',
       body: ''
@@ -41,5 +42,10 @@ class CreateForm extends Component {
     )
   }
 }
+function mapStateToProps(state, ownProps){
+  return{
+    posts: state.posts
+  }
+}
 
-export default CreateForm
+export default connect(mapStateToProps, {addPost})(CreateForm);
